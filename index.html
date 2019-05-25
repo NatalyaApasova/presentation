@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>canvas</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown data-background-image="images/foto.jpg">
+					<textarea data-template>
+						# < canvas >
+					</textarea>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							+ The canvas element (< canvas >) provides scripts with a resolution-dependent bitmap canvas, which can be used for rendering graphs, game graphics, or other visual images on the fly, by using the associated canvas API.
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							+ First introduced in WebKit by Apple for the OS X Dashboard, < canvas > has since been implemented in browsers.				
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+| Desktop browser   | Version |   | Mobile browser    | Version              |
+| ----------------- | :-----: |   | ----------------- | :------------------: |
+|  Safari           | 3.0+    |   |  iOS              | all                  |
+|  Chrome           | 10+     |   |  webOS            | all                  |
+|  Opera            | 9+      |   |  Android          | 2.0+                 |
+|  FireFox          | 4.0+    |   |  BlackBerry       | Playbook and OS 6.0+ |
+|  Internet Explorer| 9.0+    |   |  Windows Phone 7  | none                 | 
+
+[caniuse.com](https://caniuse.com/#search=canvas)
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<section data-markdown>
+						<textarea data-template>
+							HTML
+							```
+							<canvas id="canvas" width="200" height="400"></canvas>
+							```
+							
+							JS
+							```
+							const canvas = document.getElementById('canvas');
+							const ctx = canvas.getContext('2d');
+							```
+						</textarea>
+					</section>
+					<section>
+						<iframe src="http://cheatsheetworld.com/programming/html5-canvas-cheat-sheet/" width="1000" height="650"></iframe>
+					</section>
+					<section>
+						<img src="images/Canvas_default_grid.png" width="600" height="600">
+					</section>
+				</section>
+				<section>
+					<h2>Usage</h2>
+					<ul>
+						<li class="fragment fade-right" data-fragment-index="1">Drawing</li>
+						<li class="fragment fade-right" data-fragment-index="2">Typographic effects</li>
+						<li class="fragment fade-right" data-fragment-index="3">Animation</li>
+						<li class="fragment fade-right" data-fragment-index="4">Online and offline games</li>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h1>Drawing</h1>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Rectangles - simple shapes
+							```
+							c.fillStyle = "red";
+							c.fillRect(100,100,400,300);
+							//x, y, width, height
+							```
+							<img data-src="images/redrect.png">
+						</textarea>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							## Paths - complex shapes
+							```
+							c.fillStyle = 'red';
+							c.beginPath();
+							c.moveTo(10,30);
+							c.bezierCurveTo(50,90,159,-30,200,30);
+							c.lineTo(200,90);
+							c.lineTo(10,90);
+							c.closePath();
+							c.fill();
+							c.lineWidth = 4;
+							c.strokeStyle = 'black';
+							c.stroke();
+							```
+							<img src="images/pathexample.png">
+						</textarea>
+					</section>
+					<section>
+						<iframe src="https://canvaspaint.org" width="1000" height="650"></iframe>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Typographic effects</h1>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							+ strokeText(string, x, y) — draws outline (stroke) text.
+							+ fillText(string, x, y) — draws filled text.
+
+							```
+							ctx.strokeStyle = 'white';
+							ctx.lineWidth = 1;
+							ctx.font = '36px arial';
+							ctx.strokeText('Canvas text', 50, 50);
+
+							ctx.fillStyle = 'red';
+							ctx.font = '48px georgia';
+							ctx.fillText('Canvas text', 50, 150);
+							```
+							<img src="images/canvastext.png" width="850">
+						</textarea>
+					</section>
+					<section>
+						<img src="images/zebra.png" width="700">
+						<div>
+							<img src="images/alert.png" width="700">
+						</div>
+						See more: <a href="https://www.html5rocks.com/en/tutorials/canvas/texteffects/">Typographic effects in canvas</a>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Animations</h1>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							The steps to create canvas animation:
+
+							+ Clear the canvas contents.
+							+ Save state (if necessary).
+							+ Draw the graphics you are animating.
+							+ Restore the settings you saved in step 2.
+							+ Call requestAnimationFrame() to schedule drawing of the next frame of the animation.
+						</textarea>
+					</section>
+					<section>
+						<iframe height="600" style="width: 100%;" scrolling="no" title="Matrix animation using html5 canvas" src="//codepen.io/cpiscopo/embed/yfBGk/?height=265&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+						See the Pen <a href='https://codepen.io/cpiscopo/pen/yfBGk/'>Matrix animation using html5 canvas</a> by Clayton
+						(<a href='https://codepen.io/cpiscopo'>@cpiscopo</a>) on <a href='https://codepen.io'>CodePen</a>.
+						</iframe>
+					</section>
+					<section>
+						<iframe height="600" style="width: 100%;" scrolling="no" title="Tearable Cloth" src="//codepen.io/dissimulate/embed/KrAwx/?height=265&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+						See the Pen <a href='https://codepen.io/dissimulate/pen/KrAwx/'>Tearable Cloth</a> by dissimulate
+						(<a href='https://codepen.io/dissimulate'>@dissimulate</a>) on <a href='https://codepen.io'>CodePen</a>.
+						</iframe>
+					</section>
+					<section>
+						<ul>
+							<li><a href="https://onaircode.com/awesome-html5-canvas-examples-source-code/">20+ Awesome HTML5 Canvas Examples with Source Code</a></li>
+							<li><a href="https://onaircode.com/javascript-html5-canvas-animated-background/">JavaScript HTML5 Canvas Animated Background</a></li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h1>Online and offline games</h1>
+					</section>
+					<section>
+						<iframe height="700" width="800"; scrolling="no" title="Canvas Bird" src="//codepen.io/yiotiskl/embed/wGXeKV/?height=265&theme-id=dark&default-tab=js,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+						See the Pen <a href='https://codepen.io/yiotiskl/pen/wGXeKV/'>Canvas Bird</a> by Yiotis
+						(<a href='https://codepen.io/yiotiskl'>@yiotiskl</a>) on <a href='https://codepen.io'>CodePen</a>.
+						</iframe>
+					</section>
+					<section>
+						<iframe src="http://www.sinuousgame.com/" width="1400" height="600">Sinuous game</iframe>
+					</section>
+					<section>
+						<iframe src="http://www.relfind.com/game/magician.html" width="800" height="600">Magician - Fairy Rescue</iframe>
+					</section>
+				</section>
+				<section>
+					<section>
+							<h2>Canvas, SVG, CSS, DOM animation - what to use?</h2>
+					</section>
+					<section data-markdown>
+						<textarea data-template>
+							+ SVG - for existing shapes
+							
+							+ CSS or DOM animation - for large static areas
+
+							+ Canvas - charts, graphs, dynamic diagrams, video games
+						</textarea>
+					</section>
+				</section>
+				<section>
+					<h2>Thanks for watching!</h2>
+					<img src="images/eyes.png">
+					(<a href="https://lab.hakim.se/404/netmag.html">404 page built by Hakim El Hattab</a>)	
+				</section>
+				<section>
+					<ul>
+						<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage">Canvas tutorial(MDN)</a></li>
+						<li><a href="https://joshondesign.com/p/books/canvasdeepdive/toc.html">HTML Canvas Deep Dive</a></li>
+						<li><a href="https://www.w3schools.com/graphics/canvas_intro.asp">Canvas tutorial (https://www.w3schools.com)</a></li>
+					</ul>
+				</section>
+				<section>
+					<ul>
+						<li>Slides: <a href=""></a></li>
+						<li>Transcript: <a href=""></a></li>
+					</ul>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
